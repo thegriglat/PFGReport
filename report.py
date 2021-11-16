@@ -39,6 +39,9 @@ def main():
 
     functions.print_lhc_fills(connection,startdate, enddate)
 
+    functions.print_longest_runs(connection, startdate, enddate, 20)
+    functions.print_all_runs(connection, startdate, enddate)
+	
 
 if __name__ == "__main__":
     main()

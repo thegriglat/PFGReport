@@ -1,4 +1,4 @@
-
+import req
 
 def print_shifter_info(connection):
     from req import getCurrentShifter
@@ -29,4 +29,30 @@ def print_lhc_fills(connection, startdate, enddate):
         ]
         print("|" + "|".join((str(x) for x in datarow)) + "|")
 
+    print("\n")
+
+def print_longest_runs(connection, startdate, enddate, maxn):
+    print ("## {} longest runs".format(maxn))
+    print ("\n")
+    runs = req.getRuns(connection, startdate, enddate)
+    runs.sort(key=lambda x: x['duration'], reverse=True)
+    print_runs(runs[:maxn])
+    print ("\n")
+
+def print_all_runs(connection, startdate, enddate):
+    print ("## All runs")
+    print ("\n")
+    runs = req.getRuns(connection, startdate, enddate)
+    print_runs(runs)
+    print ("\n")
+
+def print_runs(runs):
+    header = runs[0].keys()
+    print("\n")
+    print("|" + "|".join(header) + "|")
+    print("|" + "|".join(("---" for x in header)) + "|")
+
+    for r in runs:
+        print("|" + "|".join((str(x[1]) for x in r.items())) + "|")
+    
     print("\n")
