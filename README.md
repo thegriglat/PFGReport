@@ -2,6 +2,13 @@
 
 CMS ECAL PFG report utility
 
+## Where view
+
+The pages are updated every hour
+
+ * [daily report](https://thegriglat.github.io/PFGReport/)
+ * [weekly report](https://thegriglat.github.io/PFGReport/week)
+
 ## How to install
 
 Requirements:
