@@ -4,6 +4,8 @@ import datetime
 
 from oracle import OracleInit
 import functions
+import req
+import downtime
 
 DATEFORMAT = "%d-%m-%Y"
 
@@ -37,11 +39,27 @@ def main():
 
     functions.print_shifter_info(connection)
 
-    functions.print_lhc_fills(connection,startdate, enddate)
+    functions.print_lhc_fills(connection, startdate, enddate)
 
-    functions.print_longest_runs(connection, startdate, enddate, 20)
-    functions.print_all_runs(connection, startdate, enddate)
-	
+    runs = req.getRuns(connection, startdate, enddate)
+    functions.print_longest_runs(runs, 20)
+    functions.print_all_runs(runs)
+
+    print("Runs: {0}\n".format(len(runs)))
+    print("Runs with ECAL IN: {0}\n".format(
+        len(
+            [x for x in runs if x["Ecal_present"] == 1]
+        )
+    ))
+    print("Runs with ES IN: {0}\n".format(
+        len(
+            [x for x in runs if x["Es_present"] == 1]
+        )
+    ))
+
+    for k in downtime.get_keys():
+        downtime.print_downtime(connection, startdate, enddate, k)
+
 
 if __name__ == "__main__":
     main()

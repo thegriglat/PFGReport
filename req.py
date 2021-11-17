@@ -55,7 +55,7 @@ def getCurrentShifter(connection, shift, subsystem="DAQ"):
             email = _l.split(':')[1].strip()
     if email == '' and displayname == '':
         print("Current {0} {1}: Not found".format(subsystem, shift))
-    print("Current {2} {3}: [{0}]({1})".format(displayname,
+    print("Current {2} {3}: [{0}]({1})\n".format(displayname,
           "mailto:" + email, subsystem, shift))
 
 
@@ -125,20 +125,20 @@ def getRuns(connection, startdate, enddate):
             duration = strfdelta(
                 row[3], "{hours:02d}:{minutes:02d}:{seconds:02d}")
         tmp = {
-            "run": row[0],
-            "starttime": row[1],
-            "endtime": row[2],
-            "duration":  duration,
-            "triggerbase": row[4],
-            "bfield": row[5],
-            "ecal_present": row[6],
-            "es_present": row[7],
-            "delivlumi": delivlumi,
-            "livelumi": livelumi,
-            "iscollision": iscollision,
-            "stablebeam": stablebeam,
-            "tcdsdiff": tcdsdiff,
-            "lhcstatuses": lhcstatuses
+            "Runnumber": row[0],
+            "Start": row[1],
+            "End": row[2],
+            "Duration":  duration,
+            "TriggerBase": row[4],
+            "BField": row[5],
+            "Ecal_present": row[6],
+            "Es_present": row[7],
+            "DelivLumi": delivlumi,
+            "LiveLumi": livelumi,
+            "isCollision": iscollision,
+            "StableBeam": stablebeam,
+            "TCDSdiff": tcdsdiff,
+            "LHCstatus": lhcstatuses
         }
         result.append(tmp)
     return result

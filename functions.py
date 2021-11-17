@@ -1,5 +1,6 @@
 import req
 
+
 def print_shifter_info(connection):
     from req import getCurrentShifter
     _l = (("ECAL", "DOC"), ("ECAL", "DG Lieutenant"),
@@ -21,7 +22,6 @@ def print_lhc_fills(connection, startdate, enddate):
     print("|" + "|".join(tableh) + "|")
     print("|" + "|".join(("---" for x in tableh)) + "|")
 
-
     for row in sorted(ocur.fetchall(), key=lambda x: x[0], reverse=True):
         datarow = [row[0], row[2], row[3], row[4], row[5] / 1000.0, row[6] / 1000.0,
                    "[link]({0})".format(
@@ -31,28 +31,44 @@ def print_lhc_fills(connection, startdate, enddate):
 
     print("\n")
 
-def print_longest_runs(connection, startdate, enddate, maxn):
-    print ("## {} longest runs".format(maxn))
-    print ("\n")
-    runs = req.getRuns(connection, startdate, enddate)
-    runs.sort(key=lambda x: x['duration'], reverse=True)
-    print_runs(runs[:maxn])
-    print ("\n")
 
-def print_all_runs(connection, startdate, enddate):
-    print ("## All runs")
-    print ("\n")
-    runs = req.getRuns(connection, startdate, enddate)
-    print_runs(runs)
-    print ("\n")
+def print_longest_runs(runs, maxn):
+    print("## {} longest runs".format(maxn))
+    print("\n")
+    q = sorted(runs, key=lambda x: x['Duration'], reverse=True)
+    print_runs(q[:maxn])
+    print("\n")
+
+
+def print_all_runs(runs):
+    print("## All runs")
+    print("\n")
+    q = sorted(runs, key=lambda x: x['Runnumber'])
+    print_runs(q)
+    print("\n")
+
 
 def print_runs(runs):
-    header = runs[0].keys()
+    header = [
+        "Runnumber",
+        "Start",
+        "End",
+        "Duration",
+        "TriggerBase",
+        "BField",
+        "Ecal_present",
+        "Es_present",
+        "DelivLumi",
+        "LiveLumi",
+        "isCollision",
+        "StableBeam",
+        "TCDSdiff",
+        "LHCstatus"
+    ]
     print("\n")
     print("|" + "|".join(header) + "|")
     print("|" + "|".join(("---" for x in header)) + "|")
 
     for r in runs:
-        print("|" + "|".join((str(x[1]) for x in r.items())) + "|")
-    
+        print("|" + "|".join((str(r[x]) for x in header)) + "|")
     print("\n")
