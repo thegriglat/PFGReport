@@ -12,7 +12,7 @@ def print_shifter_info(connection):
 def print_lhc_fills(connection, startdate, enddate):
     ocur = connection.cursor()
     ocur.execute(
-        "select NVL(lhcfill, 0), id, begintime, endtime, name, integratedlumi, integratedlivelumi from CMS_RUNTIME_LOGGER.RUNTIME_SUMMARY where (begintime >= :startq or endtime >= :startq or endtime is NULL) and (endtime is NULL or begintime <= :endq or endtime <= :endq)",
+        "select NVL(lhcfill, 0), id, begintime, endtime, name, integratedlumi, integratedlivelumi from CMS_RUNTIME_LOGGER.RUNTIME_SUMMARY where (begintime >= :startq or endtime >= :startq or endtime is NULL) and (endtime is NULL or begintime <= :endq or endtime <= :endq) and (begintime is not NULL) and (systime - begintime < 5)",
         startq=startdate, endq=enddate)
 
     tableh = ("LHCFILL", "Start", "End", "Name",
