@@ -50,20 +50,20 @@ def print_all_runs(runs):
 
 def print_runs(runs):
     header = [
-        "Runnumber",
+        "Run nb",
         "Start",
         "End",
         "Duration",
-        "TriggerBase",
-        "BField",
-        "Ecal",
-        "Es",
-        "DelivL",
-        "LiveL",
-        "isColl",
-        "StBeam",
-        "TCDSdiff",
-        "LHCstatus"
+        "Trigger Base",
+        "B Field",
+        "ECAL",
+        "ES",
+        "Deliv Lumi",
+        "Live Lumi",
+        "Coll",
+        "Stable Beam",
+        "TCDS Diff",
+        "LHC status"
     ]
     print("\n")
     print("|" + "|".join(header) + "|")

@@ -125,20 +125,20 @@ def getRuns(connection, startdate, enddate):
             duration = strfdelta(
                 row[3], "{hours:02d}:{minutes:02d}:{seconds:02d}")
         tmp = {
-            "Runnumber": row[0],
+            "Run nb": row[0],
             "Start": row[1],
             "End": row[2],
             "Duration":  duration,
-            "TriggerBase": row[4],
-            "BField": "{:.3f}".format(row[5]),
+            "Trigger Base": row[4],
+            "B Field": "{:.3f}".format(row[5]),
             "Ecal": row[6],
             "Es": row[7],
-            "DelivL": delivlumi,
-            "LiveL": livelumi,
-            "isColl": iscollision,
-            "StBeam": stablebeam,
-            "TCDSdiff": tcdsdiff,
-            "LHCstatus": lhcstatuses
+            "Deliv Lumi": delivlumi,
+            "Live Lumi": livelumi,
+            "Coll": iscollision,
+            "Stable Beam": stablebeam,
+            "TCDS Diff": tcdsdiff,
+            "LHC status": lhcstatuses
         }
         result.append(tmp)
     return result
