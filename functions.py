@@ -43,7 +43,7 @@ def print_longest_runs(runs, maxn):
 def print_all_runs(runs):
     print("## All runs")
     print("\n")
-    q = sorted(runs, key=lambda x: x['Runnumber'])
+    q = sorted(runs, key=lambda x: x['Run nb'])
     print_runs(q)
     print("\n")
 
