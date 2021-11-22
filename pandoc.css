@@ -38,3 +38,7 @@ a:hover{
 p {
   padding-left: 1em;
 }
+
+.even {
+    background-color: #EFEEF6;
+}
