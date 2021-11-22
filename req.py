@@ -76,12 +76,10 @@ def getRuns(connection, startdate, enddate):
             excludedFEDs[det] = [
                 x for x in fedstatus if x in FEDS[det]]
         if in_out_ecal != "OUT" and sum([len(excludedFEDs[x]) for x in ('EB-', "EB+", "EE-", "EE+")]) != 0:
-            redrun = True
             in_out_ecal = "PARTIAL " + in_out_ecal
             in_out_ecal = "<span title=\"{0}\">{1}</span>".format(", ".join([str(x) for x in fedstatus if x in FEDS["EB+"] or x in FEDS["EB-"]
                                                                              or x in FEDS["EE+"] or x in FEDS["EE+"]]), in_out_ecal)
         if in_out_es != "OUT" and sum([len(excludedFEDs[x]) for x in ('ES-', "ES+")]) != 0:
-            redrun = True
             in_out_es = "PARTIAL " + in_out_es
             in_out_es = "<span title=\"{0}\">{1}</span>".format(", ".join([str(x) for x in fedstatus if x in FEDS["ES+"] or x in FEDS["ES-"]]),
                                                                 in_out_es)
@@ -131,8 +129,8 @@ def getRuns(connection, startdate, enddate):
             "Duration":  duration,
             "Trigger Base": row[4],
             "B Field": "{:.3f}".format(row[5]),
-            "ECAL": row[6],
-            "ES": row[7],
+            "ECAL": in_out_ecal,
+            "ES": in_out_es,
             "Deliv Lumi": delivlumi,
             "Live Lumi": livelumi,
             "Coll": iscollision,

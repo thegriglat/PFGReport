@@ -48,12 +48,12 @@ def main():
     print("Runs: {0}\n".format(len(runs)))
     print("Runs with ECAL IN: {0}\n".format(
         len(
-            [x for x in runs if x["ECAL"] == 1]
+            [x for x in runs if "IN" in x["ECAL"]]
         )
     ))
     print("Runs with ES IN: {0}\n".format(
         len(
-            [x for x in runs if x["ES"] == 1]
+            [x for x in runs if "IN" in x["ES"]]
         )
     ))
 
