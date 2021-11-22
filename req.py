@@ -63,8 +63,8 @@ def getRuns(connection, startdate, enddate):
     result = []
     ocur = connection.cursor()
     ocur.execute("select runnumber, starttime, stoptime, stoptime - starttime as duration, triggerbase, bfield, ecal_present, es_present \
-  from CMS_WBM.runsummary where (starttime >= :startq or stoptime >= :startq) and (starttime <= :endq or stoptime <= :endq) order by runnumber desc",
-                 startq=startdate, endq=enddate)
+  from CMS_WBM.runsummary where (starttime >= :startq or stoptime >= :startq) and (starttime <= :endq or stoptime <= :endq) and sequencename = :seqn order by runnumber desc",
+                 startq=startdate, endq=enddate, seqn="GLOBAL-RUN")
     for row in ocur.fetchall():
         # row[5] = "{0:.1f}".format(row[5])  # BFIELD
         # 0: ECAL IN/OUT, 1: ES IN/OUT
