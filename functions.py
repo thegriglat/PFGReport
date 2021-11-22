@@ -63,7 +63,8 @@ def print_runs(runs):
         "Coll",
         "Stable Beam",
         "TCDS Diff",
-        "LHC status"
+        "LHC status",
+        "N Lumi"
     ]
     print("\n")
     print("|" + "|".join(header) + "|")
