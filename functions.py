@@ -18,18 +18,18 @@ def print_lhc_fills(connection, startdate, enddate):
     tableh = ("LHCFILL", "Start", "End", "Name",
               "Integrated Lumi", "Integrated Live Lumi", "Link")
 
-    print("\n")
-    print("|" + "|".join(tableh) + "|")
-    print("|" + "|".join(("---" for x in tableh)) + "|")
-
-    for row in sorted(ocur.fetchall(), key=lambda x: x[0], reverse=True):
-        datarow = [row[0], row[2], row[3], row[4], row[5] / 1000.0, row[6] / 1000.0,
-                   "[link]({0})".format(
-            "https://cmswbm.web.cern.ch/cmswbm/cmsdb/servlet/FillRuntimeChart?runtimeID=" + str(row[1]))
-        ]
-        print("|" + "|".join((str(x) for x in datarow)) + "|")
-
-    print("\n")
+    data = ocur.fetchall()
+    if len(data) != 0:
+        print("\n")
+        print("|" + "|".join(tableh) + "|")
+        print("|" + "|".join(("---" for x in tableh)) + "|")
+        for row in sorted(data, key=lambda x: x[0], reverse=True):
+            datarow = [row[0], row[2], row[3], row[4], row[5] / 1000.0, row[6] / 1000.0,
+                       "[link]({0})".format(
+                "https://cmswbm.web.cern.ch/cmswbm/cmsdb/servlet/FillRuntimeChart?runtimeID=" + str(row[1]))
+            ]
+            print("|" + "|".join((str(x) for x in datarow)) + "|")
+        print("\n")
 
 
 def print_longest_runs(runs, maxn):
