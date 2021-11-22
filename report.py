@@ -42,7 +42,7 @@ def main():
     functions.print_lhc_fills(connection, startdate, enddate)
 
     runs = req.getRuns(connection, startdate, enddate)
-    functions.print_longest_runs(runs, 20)
+    functions.print_longest_runs(runs, min(20, len(runs)))
     functions.print_all_runs(runs)
 
     print("Runs: {0}\n".format(len(runs)))
