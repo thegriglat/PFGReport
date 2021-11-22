@@ -60,11 +60,11 @@ def print_runs(runs):
         "ES",
         "Deliv Lumi",
         "Live Lumi",
+        "N Lumi",
         "Coll",
         "Stable Beam",
         "TCDS Diff",
-        "LHC status",
-        "N Lumi"
+        "LHC status"
     ]
     print("\n")
     print("|" + "|".join(header) + "|")

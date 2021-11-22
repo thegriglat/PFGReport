@@ -139,7 +139,7 @@ def getRuns(connection, startdate, enddate):
             "Stable Beam": stablebeam,
             "TCDS Diff": tcdsdiff,
             "LHC status": lhcstatuses,
-            "N Limi": n_lumisections
+            "N Lumi": n_lumisections
         }
         result.append(tmp)
     return result
