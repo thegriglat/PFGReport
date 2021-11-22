@@ -56,12 +56,12 @@ def print_runs(runs):
         "Duration",
         "TriggerBase",
         "BField",
-        "Ecal_present",
-        "Es_present",
-        "DelivLumi",
-        "LiveLumi",
-        "isCollision",
-        "StableBeam",
+        "Ecal",
+        "Es",
+        "DelivL",
+        "LiveL",
+        "isColl",
+        "StBeam",
         "TCDSdiff",
         "LHCstatus"
     ]
