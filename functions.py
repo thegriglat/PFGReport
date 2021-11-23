@@ -70,5 +70,5 @@ def print_runs(runs):
     print("| ---    | " + "|".join(("---" for x in header)) + "|")
 
     for r in runs:
-        print("| [{0}](https://cmsoms.cern.ch/cms/runs/report?cms_run={0})".format(r['Run nb']) + "|".join((str(r[x]) for x in header)) + "|")
+        print("| [{0}](https://cmsoms.cern.ch/cms/runs/report?cms_run={0}) | ".format(r['Run nb']) + "|".join((str(r[x]) for x in header)) + "|")
     print("\n")
