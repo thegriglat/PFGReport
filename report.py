@@ -30,7 +30,7 @@ def main():
 
     enddate = datetime.datetime.now()
     if args.end:
-        enddate = datetime.datetime.strptime(args.start, DATEFORMAT)
+        enddate = datetime.datetime.strptime(args.end, DATEFORMAT)
 
     print("# PFG Report for the period from {0} until {1}".format(
         startdate.strftime(DATEFORMAT), enddate.strftime(DATEFORMAT)))
