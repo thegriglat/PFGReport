@@ -36,7 +36,7 @@ def print_longest_runs(runs, maxn):
     print("## {} longest runs".format(maxn))
     print("\n")
     q = sorted(runs, key=lambda x: x['Duration'], reverse=True)
-    print_runs(q[:maxn])
+    print_runs(sorted(q[:maxn], key=lambda x: x['Run nb'], reverse=True))
     print("\n")
 
 
