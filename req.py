@@ -114,7 +114,7 @@ def getRuns(connection, startdate, enddate):
         elif n_lumisections == 0:
             delivlumi = 0
             livelumi = 0
-        lhcstatuses = getLHCStatusForRun(connection, row[0])[0]
+        lhcstatuses = "" # getLHCStatusForRun(connection, row[0])
         tcdsdiff = getTCDSFreqMonVDiff(connection, row[0])
         if tcdsdiff is None:
             tcdsdiff = 0
@@ -136,7 +136,7 @@ def getRuns(connection, startdate, enddate):
             "Coll": iscollision,
             "Stable Beam": stablebeam,
             "TCDS Diff": tcdsdiff,
-            "LHC status": lhcstatuses,
+            "LHC status": "<br>".join(lhcstatuses),
             "N Lumi": n_lumisections
         }
         result.append(tmp)

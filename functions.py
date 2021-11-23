@@ -1,4 +1,21 @@
 import req
+from datetime import timedelta
+
+coll_runs_style = """
+font-weight: bold;
+"""
+
+coll_5m_runs_style = """
+border: 2px solid green;
+"""
+
+coll_wo_ecal_es_runs_style = """
+background-color: #FFCCCC;
+"""
+
+cosmic_runs_style = """
+background-color: #E0E0E0;
+"""
 
 
 def print_shifter_info(connection):
@@ -32,23 +49,76 @@ def print_lhc_fills(connection, startdate, enddate):
         print("\n")
 
 
+def filter_collision_runs_ids(runs):
+    r = []
+    i = 0
+    for x in runs:
+        if "collision" in x["Trigger Base"]:
+            r.append(i)
+        i += 1
+    return r
+
+
+def filter_time_ids(runs, seconds):
+    r = []
+    i = 0
+    for x in runs:
+        h = int(x["Duration"].split(":")[0])
+        m = int(x["Duration"].split(":")[1])
+        s = int(x["Duration"].split(":")[2])
+        if "collision" in x["Trigger Base"] and timedelta(hours=h, minutes=m, seconds=s).total_seconds() > seconds:
+            r.append(i)
+        i += 1
+    return r
+
+
+def filter_ecal_es_ids(runs):
+    r = []
+    i = 0
+    for x in runs:
+        if "collision" in x["Trigger Base"] and (x["ECAL"] == "OUT" or x["ES"] == "OUT"):
+            r.append(i)
+        i += 1
+    return r
+
+
+def filter_cosmic_runs(runs):
+    r = []
+    i = 0
+    for x in runs:
+        if "cosmic" in x["Trigger Base"]:
+            r.append(i)
+        i += 1
+    return r
+
+
 def print_longest_runs(runs, maxn):
     print("## {} longest runs".format(maxn))
     print("\n")
     q = sorted(runs, key=lambda x: x['Duration'], reverse=True)
-    print_runs(sorted(q[:maxn], key=lambda x: x['Run nb'], reverse=True))
+    q = sorted(q[:maxn], key=lambda x: x['Run nb'], reverse=True)
+    print_runs(q, "longestruns")
     print("\n")
+
+
+def print_styles(tablename, run_ids, style):
+    print("<style>")
+    for i in run_ids:
+        print(
+            ".{tn} table tbody > tr:nth-child({n}) {{".format(tn=tablename, n=i + 1))
+        print(style)
+        print("}")
+    print("</style>")
 
 
 def print_all_runs(runs):
     print("## All runs")
-    print("\n")
     q = sorted(runs, key=lambda x: x['Run nb'], reverse=True)
-    print_runs(q)
+    print_runs(q, "allruns")
     print("\n")
 
 
-def print_runs(runs):
+def print_runs(runs, tablename):
     header = [
         "Start",
         "End",
@@ -65,10 +135,24 @@ def print_runs(runs):
         "TCDS Diff",
         "LHC status"
     ]
-    print("\n")
+    if tablename:
+        print("<div class='{0}'>\n\n".format(tablename))
+    else:
+        print("\n")
     print("| Run nb | " + "|".join(header) + "|")
     print("| ---    | " + "|".join(("---" for x in header)) + "|")
 
     for r in runs:
-        print("| [{0}](https://cmsoms.cern.ch/cms/runs/report?cms_run={0}) | ".format(r['Run nb']) + "|".join((str(r[x]) for x in header)) + "|")
-    print("\n")
+        print("| [{0}](https://cmsoms.cern.ch/cms/runs/report?cms_run={0}) | ".format(
+            r['Run nb']) + "|".join((str(r[x]) for x in header)) + "|")
+    print("\n</div>\n")
+
+    coll_runs = filter_collision_runs_ids(runs)
+    coll_5m_runs = filter_time_ids(runs, 5*60)
+    coll_wo_ecal_es_runs = filter_ecal_es_ids(runs)
+    cosmic_runs = filter_cosmic_runs(runs)
+
+    print_styles(tablename, coll_runs, coll_runs_style)
+    print_styles(tablename, coll_5m_runs, coll_5m_runs_style)
+    print_styles(tablename, coll_wo_ecal_es_runs, coll_wo_ecal_es_runs_style)
+    print_styles(tablename, cosmic_runs, cosmic_runs_style)
